@@ -1,3 +1,5 @@
+#include <ranges>
+
 #include "event_bus.hpp"
 
 namespace event_bus {
@@ -11,7 +13,7 @@ namespace event_bus {
 
         auto& bucket = bucketIT->second;
 
-        auto it = std::find_if(bucket.begin(), bucket.end(), 
+        auto it = std::ranges::find_if(bucket,
             [subHandle](const HandlerEntry& handler) { return handler.eventId == subHandle.eventId; }
         );
 
