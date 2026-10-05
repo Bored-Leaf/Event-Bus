@@ -1,12 +1,8 @@
 #include "event_bus.hpp"
 
 namespace event_bus {
-    void printHello() {
-        std::println("Hello from event bus!");
-    }
-
-    void EventBus::Unsubscribe(const SubscriptionHandle& handle) {
-        auto bucketIT = handlers.find(handle.eventType);
+    void EventBus::Unsubscribe(const SubscriptionHandle& subHandle) {
+        auto bucketIT = handlers.find(subHandle.eventType);
 
         if (bucketIT == handlers.end()) {
             std::println("A bucket was not found to unsubscribe from an event!");
@@ -16,7 +12,7 @@ namespace event_bus {
         auto& bucket = bucketIT->second;
 
         auto it = std::find_if(bucket.begin(), bucket.end(), 
-            [handle](const HandlerEntry& handler) { return handler.eventId == handle.eventId; }
+            [subHandle](const HandlerEntry& handler) { return handler.eventId == subHandle.eventId; }
         );
 
         if (it != bucket.end()) {
