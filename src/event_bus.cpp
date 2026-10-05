@@ -1,4 +1,4 @@
-#include <ranges>
+#include <algorithm>
 
 #include "event_bus.hpp"
 
