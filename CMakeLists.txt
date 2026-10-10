@@ -18,4 +18,7 @@ target_include_directories(event_bus
 set_target_properties(event_bus PROPERTIES POSITION_INDEPENDENT_CODE ON)
 target_compile_features(event_bus PUBLIC cxx_std_23)
 
-add_subdirectory(tests)
+option(event_bus_build_tests "Build Event Bus tests" ${PROJECT_IS_TOP_LEVEL})
+if (event_bus_build_tests)
+    add_subdirectory(tests)
+endif()
