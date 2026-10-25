@@ -1,5 +1,5 @@
 # Event-Bus
-A simple generic exception free event bus that supports subscribing, unsubscribing and publishing events of any type.
+A simple generic event bus that supports subscribing, unsubscribing and publishing events of any type.
 
 To create a low latency as I can with my current knowledge and skill this event bus ***can*** operate on a strict no-throw 
 contract with the **`-fno-exceptions`** flag. In this case, Event listeners must catch their own exceptions.
