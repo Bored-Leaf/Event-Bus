@@ -1,5 +1,10 @@
 #pragma once
 
+#if defined(__cpp_exceptions)
+    #include <exception>
+#endif
+
+#include <cstdlib>
 #include <vector>
 #include <functional>
 #include <typeindex>
@@ -59,7 +64,7 @@ namespace event_bus {
          * @details Takes a handle, assigns it an ID, and places it in @ref handlers whose
          * bucket is determined by type @p T
          *
-         * @warning This function is not thread safe
+         * @warning This function is not thread safe.
          * 
          * @tparam T The event type.
          * @param handler The callback function which receieves the event data object of type @p T.
@@ -82,10 +87,11 @@ namespace event_bus {
         }
 
         /**
-         * @brief Publishes an event and calls its handles
-         * @details Publishes an event and calls its bucket determined by type @p T
+         * @brief Publishes an event and calls its handles.
+         * @details Publishes an event and calls its bucket determined by type @p T.
+         * Supports exception handling if exceptions are enabled.
          *
-         * @warning This function is not thread safe
+         * @warning This function is not thread safe.
          * 
          * @tparam T The event type.
          * @param eventData The event data.
@@ -104,7 +110,20 @@ namespace event_bus {
 
             for (auto& handleEntry : bucket) {
                 std::function<void(const T&)> handle = std::any_cast<std::function<void(const T&)>>(handleEntry.handler);
+
+            #if defined(__cpp_exceptions)
+                try {
+                    handle(eventData);
+                } catch (const std::exception& e) {
+                    std::println("{}", e.what());
+                    continue;
+                } catch (...) {
+                    std::println("Uknown exception type caught from listener");
+                    std::terminate();
+                }
+            #else
                 handle(eventData);
+            #endif
             }
         }
         

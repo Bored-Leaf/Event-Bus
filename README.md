@@ -1,10 +1,15 @@
 # Event-Bus
-A simple generic event bus
-## Current capabilities
-subscribing, unsubscribing and publishing events of any type.
+A simple generic exception free event bus that supports subscribing, unsubscribing and publishing events of any type.
+
+To create a low latency as I can with my current knowledge and skill this event bus operates on a strict no-throw 
+contract. Event listeners must catch their own exceptions.
+
+- **`-fno-exceptions`** ready: The codebase is compiled entirely free from `try`, `catch` and `throw` statements when the 
+**`-fno-exceptions`** flag is used.
+
 
 # Future Plans
-- Make thread safe
-- Optimise performance and memory usage while still being flexible
-- Async and deferred/queued dispatch
-- variadic templates for handles that can accept 0 to many parameters instead of being forced to accept only one
+- Make thread safe.
+- Optimise performance and memory usage while still being flexible.
+- Async and deferred/queued dispatch.
+- variadic templates for handles that can accept 0 to many parameters instead of being forced to accept only one.
