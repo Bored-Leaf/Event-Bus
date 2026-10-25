@@ -92,6 +92,7 @@ namespace event_bus {
          * Supports exception handling if exceptions are enabled.
          *
          * @warning This function is not thread safe.
+         * @warning Handle's must not throw exceptions when exceptions are disabled.
          * 
          * @tparam T The event type.
          * @param eventData The event data.
